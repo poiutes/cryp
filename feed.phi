@@ -1,0 +1,126 @@
+import requests
+import time
+import torch
+import pandas
+import numpy
+
+url = 'https://api.coindesk.com/v1/bpi/currentprice.json'
+
+class Feed
+	def price self
+		response = requests.get url
+		response_json = response.json null
+
+		return response_json['bpi']['USD']['rate']
+
+	def feed self length seconds
+		chunk = []
+		i = 1
+		inc length
+		until i = length
+			time.sleep seconds
+			bprice = self.price null
+			print bprice
+			chunk.append bprice
+			inc i
+		print 'chunk'
+		#print chunk
+		return chunk
+	
+	def normalize self chunk start
+		i = 0
+		base = chunk[start]
+		base = base.replace ',' ''
+		base = float base
+		until i = len chunk
+			num = chunk[i]
+			num = num.replace ',' ''
+			num = float num
+			#make float significant to a digit
+			num = sub num base
+			num = round num 4
+			num = str num
+			print num
+			chunk[i] = num
+			inc i
+		#print chunk
+		return chunk
+
+	def chunk2eos_csv self chunk start eos_csv
+		i = start
+		s = []
+		length = len chunk
+		until i = length
+			num = chunk[i]
+			num = float num
+			num = round num 4
+			s.append num 
+			inc i
+		s = sum s
+		eo = [0.0 0.0]
+		if s <= 0
+			eo[1] = 1.0
+		if s > 0
+			eo[0] = 1.0
+		eo[0] = str eo[0]
+		eo[1] = str eo[1]
+		
+		del chunk[start:length]
+		f = open eos_csv 'a'
+		f.write '\n'
+		f.write eo[0]
+		f.write ','
+		f.write eo[1]
+		f.close null
+
+	def chunk2ins_csv self chunk ins_csv 
+		f = open ins_csv 'a'
+		f.write '\n'
+		i = 0
+		end = len chunk 
+		end = sub end 1
+		until i = end
+			f.write chunk[i]
+			f.write ','
+			inc i
+		f.write chunk[i]
+		f.close null
+
+	def load self inputs_csv eos_csv batch_size
+		inputs = pandas.read_csv inputs_csv
+		#print inputs
+		inputs = inputs.values
+		#print 'empty'
+		#print inputs
+
+		eos = pandas.read_csv eos_csv
+		eos = eos.values
+		print eos
+		print inputs
+		i = 0
+		j = batch_size
+		tensdata = []
+		length = eos.shape[0]
+		#print length 'al;dfjakldfjajkdsfajd'
+		until length <= j
+			tens1 = inputs[i:j]
+			tens1 = torch.from_numpy tens1
+			tens1 = tens1.float null
+			#print tens1
+			
+			tens2 = eos[i:j]
+			tens2 = torch.from_numpy tens2
+			tens2 = tens2.float null
+			#print tens2
+			tenslist = [tens1 tens2]
+			#print tenslist
+			tensdata.append tenslist
+			i = add i batch_size
+			j = add j batch_size
+
+		return tensdata
+
+
+
+			
+
