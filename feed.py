@@ -100,13 +100,16 @@ class Feed ():
 		i = 0
 		j = batch_size
 		tensdata = []
+		print (eos.shape)
 		length = eos.shape[0]
 		
-		while length > j:
+		while length >= j:
 			tens1 = inputs[i:j]
+			print (tens1,i,j)
 			tens1 = torch.from_numpy (tens1)
 			tens1 = tens1.float ()
-			
+			print ('huh?')
+			print (tens1)
 			
 			tens2 = eos[i:j]
 			tens2 = torch.from_numpy (tens2)
