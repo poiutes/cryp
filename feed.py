@@ -20,6 +20,7 @@ class Feed ():
 		while i != length:
 			time.sleep (seconds)
 			bprice = self.price ()
+			bprice = bprice.replace (',','')
 			print (bprice)
 			chunk.append (bprice)
 			i = i + 1
@@ -34,7 +35,6 @@ class Feed ():
 		base = float (base)
 		while i != len (chunk):
 			num = chunk[i]
-			num = num.replace (',','')
 			num = float (num)
 			
 			num = num-base
@@ -95,21 +95,21 @@ class Feed ():
 
 		eos = pandas.read_csv (eos_csv)
 		eos = eos.values
-		print (eos)
-		print (inputs)
+		
+		
 		i = 0
 		j = batch_size
 		tensdata = []
-		print (eos.shape)
+		
 		length = eos.shape[0]
 		
 		while length >= j:
 			tens1 = inputs[i:j]
-			print (tens1,i,j)
+			
 			tens1 = torch.from_numpy (tens1)
 			tens1 = tens1.float ()
-			print ('huh?')
-			print (tens1)
+			
+			
 			
 			tens2 = eos[i:j]
 			tens2 = torch.from_numpy (tens2)

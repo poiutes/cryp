@@ -1,17 +1,22 @@
 import nn
 import torch
 import feed
+import pandas
+
 
 net = nn.Net null
 path = torch.load 'firstsuccess.pth'
 net.load_state_dict path
 
+#see what percent we get right
+
+
 x = feed.Feed null
 dataset = x.load 'ins.csv' 'eos.csv' 1
-print 'gumbo'
-print dataset
+#print 'gumbo'
+#print dataset
 
-#see what percent we get right
+bank = 1.0
 correct = 0
 total = 0
 with torch.no_grad null 
@@ -25,12 +30,27 @@ with torch.no_grad null
 		#print outputs
 		#print 'eos'
 		#print eos
+		#do nothing condition
 		if outputs[0][0] > outputs[0][1]
 			if eos[0][0] = 1.0
 				inc correct
+		#buy condition
 		if outputs[0][0] <= outputs[0][1]
 			if eos[0][1] = 1.0
+				raw = pandas.read_csv 'raw.csv'
+				raw = raw.values
+				#print raw
+				profit = div raw[0][14] raw[0][9]
+				bank = mul bank profit
 				inc correct
+
+			if eos[0][1] = 0.0
+				raw = pandas.read_csv 'raw.csv'
+				raw = raw.values
+				#print raw
+				profit = div raw[0][14] raw[0][9]
+				bank = mul bank profit
+		
 		inc total
 		inc i
 
@@ -39,3 +59,4 @@ print total
 percent = div correct total
 percent = mul percent 100
 print percent '%'
+print bank

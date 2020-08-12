@@ -20,6 +20,7 @@ class Feed
 		until i = length
 			time.sleep seconds
 			bprice = self.price null
+			bprice = bprice.replace ',' ''
 			print bprice
 			chunk.append bprice
 			inc i
@@ -34,7 +35,6 @@ class Feed
 		base = float base
 		until i = len chunk
 			num = chunk[i]
-			num = num.replace ',' ''
 			num = float num
 			#make float significant to a digit
 			num = sub num base
@@ -95,21 +95,21 @@ class Feed
 
 		eos = pandas.read_csv eos_csv
 		eos = eos.values
-		print eos
-		print inputs
+		#print eos
+		#print inputs
 		i = 0
 		j = batch_size
 		tensdata = []
-		print eos.shape
+		#print eos.shape
 		length = eos.shape[0]
 		#print length 'al;dfjakldfjajkdsfajd'
 		until length < j
 			tens1 = inputs[i:j]
-			print tens1 i j
+			#print tens1 i j
 			tens1 = torch.from_numpy tens1
 			tens1 = tens1.float null
-			print 'huh?'
-			print tens1
+			#print 'huh?'
+			#print tens1
 			
 			tens2 = eos[i:j]
 			tens2 = torch.from_numpy tens2
