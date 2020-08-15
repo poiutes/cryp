@@ -48,24 +48,19 @@ class Feed
 
 	def chunk2eos_csv self chunk start eos_csv
 		i = start
-		s = []
 		length = len chunk
-		until i = length
-			num = chunk[i]
-			num = float num
-			num = round num 4
-			s.append num 
-			inc i
-		s = sum s
+		end = sub length 1
 		eo = [0.0 0.0]
-		if s <= 0
+
+		if chunk[start] < chunk[end]
 			eo[1] = 1.0
-		if s > 0
+
+		if chunk[start] >= chunk[end]
 			eo[0] = 1.0
+			
 		eo[0] = str eo[0]
 		eo[1] = str eo[1]
 		
-		del chunk[start:length]
 		f = open eos_csv 'a'
 		f.write '\n'
 		f.write eo[0]

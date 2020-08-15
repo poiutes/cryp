@@ -29,10 +29,7 @@ until 1 = 0
 			eos = dataset[i][1]
 			#print eos
 			outputs = net ins
-			#print 'ouputs'
-			#print outputs
-			#print 'eos'
-			#print eos
+			
 			#do nothing condition
 			if outputs[0][0] > outputs[0][1]
 				if eos[0][0] = 1.0

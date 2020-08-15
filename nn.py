@@ -16,7 +16,6 @@ class Net (nn.Module):
 		x = self.fc2 (x)
 		return x
 
-
 def train (dataset):
 	net = Net ()
 	criterion = nn.MSELoss ()
@@ -45,14 +44,17 @@ def train (dataset):
 				print ('[',epoch,a,'] loss',b)
 				running_loss = 0.0
 			i = i + 1
-		k = k + 1 
+		k = k + 1
+	testnet1 = net.state_dict ()
+	torch.save (testnet1,'./testnet1.pth')
+	
 def run ():		
 	x = feed.Feed ()
-	dataset = x.load ('trainingins.csv','trainingeos.csv',4)
+	dataset = x.load ('training_set/trainingins.csv','training_set/trainingeos.csv',4)
 	
 	
 	train (dataset)
 	print ('Finished Training')
-	testnet1 = net.state_dict ()
-	torch.save (testnet1,'./testnet1.pth')
+	
 
+run ()

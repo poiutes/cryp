@@ -31,9 +31,6 @@ while 1 != 0:
 			outputs = net (ins)
 			
 			
-			
-			
-			
 			if outputs[0][0] > outputs[0][1]:
 				if eos[0][0] == 1.0:
 					correct = correct + 1
