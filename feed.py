@@ -21,10 +21,10 @@ class Feed ():
 			time.sleep (seconds)
 			bprice = self.price ()
 			bprice = bprice.replace (',','')
-			print (bprice)
+			
 			chunk.append (bprice)
 			i = i + 1
-		print ('chunk')
+		
 		
 		return chunk
 	
@@ -40,7 +40,7 @@ class Feed ():
 			num = num-base
 			num = round (num,4)
 			num = str (num)
-			print (num)
+			
 			chunk[i] = num
 			i = i + 1
 		

@@ -21,10 +21,10 @@ class Feed
 			time.sleep seconds
 			bprice = self.price null
 			bprice = bprice.replace ',' ''
-			print bprice
+			#print bprice
 			chunk.append bprice
 			inc i
-		print 'chunk'
+		#print 'chunk'
 		#print chunk
 		return chunk
 	
@@ -40,7 +40,7 @@ class Feed
 			num = sub num base
 			num = round num 4
 			num = str num
-			print num
+			#print num
 			chunk[i] = num
 			inc i
 		#print chunk
