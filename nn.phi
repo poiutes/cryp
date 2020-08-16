@@ -56,5 +56,4 @@ def run null
 	train dataset
 	print 'Finished Training'
 	
-
 #run null

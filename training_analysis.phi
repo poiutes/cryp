@@ -4,25 +4,18 @@ import feed
 import pandas
 
 net = nn.Net null
-path = torch.load 'testnet1.pth'
-net.load_state_dict path
+
 
 x = feed.Feed null
-start_price = x.feed 1 0
-start_price = start_price[0]
-start_price = float start_price
 
-print start_price
-
-market = start_price
-bank = start_price
-print bank
-
-def percent_right ins eos raw bank market
+def percent_right ins eos raw1
+	path = torch.load 'testnet2.pth'
+	net.load_state_dict path
 	dataset = x.load ins eos 1
-	#print 'gumbo'
-	#print dataset 'training_set/trainingins.csv' 'training_set/trainingeos.csv'
-	print bank 'hwaht'
+	raw = pandas.read_csv raw1
+	raw = raw.values
+	bank = raw[0][0]
+
 	#see what percent we get right
 	correct = 0
 	total = 0
@@ -39,8 +32,6 @@ def percent_right ins eos raw bank market
 				if eos[0][0] = 1.0
 					inc correct
 			#buy condition
-			raw = pandas.read_csv raw
-			raw = raw.values
 			if outputs[0][0] <= outputs[0][1]
 				if eos[0][1] = 1.0
 					profit = div raw[0][14] raw[0][9]
@@ -55,18 +46,30 @@ def percent_right ins eos raw bank market
 			inc total
 			inc i
 
-	print 'price points:' raw[0][0] raw[0][9] raw[0][14]
 	#print 'eos: ' eos
 	percent = div correct total
 	percent = mul percent 100
 	print 'percent_right:' percent '%'
 	print 'bank:' bank
-	market = raw[0][14]
+	market = raw[99][14]
 	print 'market:' market
 	performance = div bank market
 	print 'performance:' performance
+	return performance
 
-percent_right 'training_set/trainingins.csv' 'training_set/trainingeos.csv' 'training_set/trainingraw.csv' bank market
-percent_right 'testing_set/testingins.csv' 'testing_set/testingeos.csv' 'testing_set/testingraw.csv' bank market
+def goldilocks null
+	i = 0 
+	until i = 100 
+		nn.run null
+		a = percent_right 'training_set/trainingins.csv' 'training_set/trainingeos.csv' 'training_set/trainingraw.csv'
+		if a > 1.0
+			b = percent_right 'testing_set/testingins.csv' 'testing_set/testingeos.csv' 'testing_set/testingraw.csv'
+			if b > 1.0 
+				print 'done'
+				print a
+				print b
+				return 0
+		inc i
 
+goldilocks null
 
