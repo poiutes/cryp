@@ -10,9 +10,10 @@ path = torch.load ('testnet1.pth')
 net.load_state_dict (path)
 
 x = feed.Feed ()
+start_price = x.feed (1,0)
 
-market = 1.0
-bank = 1.0
+market = start_price
+bank = start_price
 
 while 1 != 0:
 	initdata.initdata (20,1,10,5)
@@ -59,6 +60,7 @@ while 1 != 0:
 	percent = percent*100
 	print ('percent_right:',percent,'%')
 	print ('bank:',bank)
-	market_change = raw[0][14]/raw[0][0]
-	market = market*market_change
+	market = raw[0][14]
 	print ('market:',market)
+	performance = bank/market
+	print ('performance:',performance)
