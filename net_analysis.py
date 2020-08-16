@@ -4,18 +4,20 @@ import feed
 import pandas
 import initdata
 
+
+net = nn.Net ()
+path = torch.load ('testnet1.pth')
+net.load_state_dict (path)
+
+x = feed.Feed ()
+
+market = 1.0
 bank = 1.0
+
 while 1 != 0:
 	initdata.initdata (20,1,10,5)
 
-	net = nn.Net ()
-	path = torch.load ('testnet1.pth')
-	net.load_state_dict (path)
-
 	
-
-
-	x = feed.Feed ()
 	dataset = x.load ('ins.csv','eos.csv',1)
 	
 	
@@ -52,8 +54,11 @@ while 1 != 0:
 			i = i + 1
 
 	print ('price points:',raw[0][0],raw[0][9],raw[0][14])
-	print ('eos: ',eos)
+	
 	percent = correct/total
 	percent = percent*100
-	print ('percent_right: ',percent,'%')
-	print ('bank: ',bank)
+	print ('percent_right:',percent,'%')
+	print ('bank:',bank)
+	market_change = raw[0][14]/raw[0][0]
+	market = market*market_change
+	print ('market:',market)

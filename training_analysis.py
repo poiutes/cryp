@@ -3,7 +3,7 @@ import torch
 import feed
 
 net = nn.Net ()
-path = torch.load ('testnet2.pth')
+path = torch.load ('testnet1.pth')
 net.load_state_dict (path)
 
 x = feed.Feed ()
