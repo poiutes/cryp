@@ -46,7 +46,7 @@ def train (dataset):
 			i = i + 1
 		k = k + 1
 	testnet1 = net.state_dict ()
-	torch.save (testnet1,'./testnet1.pth')
+	torch.save (testnet1,'./testnet2.pth')
 	
 def run ():		
 	x = feed.Feed ()
@@ -57,4 +57,3 @@ def run ():
 	print ('Finished Training')
 	
 
-run ()

@@ -9,7 +9,7 @@ while 1 != 0:
 	initdata.initdata (20,1,10,5)
 
 	net = nn.Net ()
-	path = torch.load ('firstsuccess.pth')
+	path = torch.load ('testnet1.pth')
 	net.load_state_dict (path)
 
 	

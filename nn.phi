@@ -46,7 +46,7 @@ def train dataset
 			inc i
 		inc k
 	testnet1 = net.state_dict null
-	torch.save testnet1 './testnet1.pth'
+	torch.save testnet1 './testnet2.pth'
 	
 def run null		
 	x = feed.Feed null
@@ -57,4 +57,4 @@ def run null
 	print 'Finished Training'
 	
 
-run null
+#run null

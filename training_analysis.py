@@ -3,7 +3,7 @@ import torch
 import feed
 
 net = nn.Net ()
-path = torch.load ('testnet1.pth')
+path = torch.load ('testnet2.pth')
 net.load_state_dict (path)
 
 x = feed.Feed ()
@@ -36,8 +36,8 @@ def percent_right (ins,eos):
 			total = total + 1
 			i = i + 1
 
-	print (correct)
-	print (total)
+	
+	
 	percent = correct/total
 	percent = percent*100
 	print (percent,'%')
