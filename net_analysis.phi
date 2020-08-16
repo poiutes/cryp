@@ -11,6 +11,10 @@ net.load_state_dict path
 
 x = feed.Feed null
 start_price = x.feed 1 0
+start_price = start_price[0]
+start_price = float start_price
+
+print start_price
 
 market = start_price
 bank = start_price
