@@ -64,5 +64,4 @@ def initdataset (width,height,fetch_interval,buy_window,dataset_name):
 		i = i + 1
 
 
-initdataset (20,100,10,5,'training')
-initdataset (20,100,10,5,'testing')
+

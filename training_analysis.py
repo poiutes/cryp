@@ -9,7 +9,7 @@ net = nn.Net ()
 x = feed.Feed ()
 
 def percent_right (ins,eos,raw1):
-	path = torch.load ('testnet2.pth')
+	path = torch.load ('hellyeah.pth')
 	net.load_state_dict (path)
 	dataset = x.load (ins,eos,1)
 	raw = pandas.read_csv (raw1)
@@ -53,9 +53,14 @@ def percent_right (ins,eos,raw1):
 	print ('bank:',bank)
 	market = raw[99][14]
 	print ('market:',market)
+	print ('market start',raw[0][0])
 	performance = bank/market
 	print ('performance:',performance)
+	percent_return = bank/raw[0][0]
+	print ('percent return',percent_return)
+	print ('\n')
 	return performance
+	
 
 def goldilocks ():
 	i = 0 
@@ -71,5 +76,8 @@ def goldilocks ():
 				return 0
 		i = i + 1
 
-goldilocks ()
+
+
+percent_right ('training_set/trainingins.csv','training_set/trainingeos.csv','training_set/trainingraw.csv')
+percent_right ('testing_set/testingins.csv','testing_set/testingeos.csv','testing_set/testingraw.csv')
 

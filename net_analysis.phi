@@ -6,7 +6,7 @@ import initdata
 
 
 net = nn.Net null
-path = torch.load 'testnet1.pth'
+path = torch.load 'hellyeah.pth'
 net.load_state_dict path
 
 x = feed.Feed null
@@ -58,13 +58,15 @@ until 1 = 0
 			inc total
 			inc i
 
-	print 'price points:' raw[0][0] raw[0][9] raw[0][14]
-	#print 'eos: ' eos
 	percent = div correct total
 	percent = mul percent 100
 	print 'percent_right:' percent '%'
 	print 'bank:' bank
 	market = raw[0][14]
 	print 'market:' market
+	print 'market start' raw[0][0]
 	performance = div bank market
 	print 'performance:' performance
+	percent_return = div bank raw[0][0]
+	print 'percent return:' percent_return
+	print '\n'
