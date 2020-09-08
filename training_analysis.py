@@ -57,7 +57,7 @@ def percent_right (ins,eos,raw1):
 	performance = bank/market
 	print ('performance:',performance)
 	percent_return = bank/raw[0][0]
-	print ('percent return',percent_return)
+	print ('percent return:',percent_return)
 	print ('\n')
 	return performance
 	
