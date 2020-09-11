@@ -2,6 +2,7 @@ import nn
 import torch
 import feed
 import pandas
+import os
 
 net = nn.Net null
 
@@ -19,6 +20,17 @@ def percent_right ins eos raw1
 	#see what percent we get right
 	correct = 0
 	total = 0
+
+	os.remove 'bitcoin_price.csv'
+	os.remove 'bank_price.csv' 
+	os.remove 'performance.csv' 
+	os.remove 'correct_trades.csv'
+
+	f1 = open 'bitcoin_price.csv' 'a'
+	f2 = open 'bank_price.csv' 'a'
+	f3 = open 'performance.csv' 'a'
+	f4 = open 'correct_trades.csv' 'a'
+
 	with torch.no_grad null 
 		i = 0
 		until i = len dataset
@@ -34,27 +46,50 @@ def percent_right ins eos raw1
 			#buy condition
 			if outputs[0][0] <= outputs[0][1]
 				if eos[0][1] = 1.0
-					profit = div raw[0][14] raw[0][9]
+					profit = div raw[i][14] raw[i][9]
 					bank = mul bank profit
+					#bank = mul bank 0.99
 					inc correct
 
 				if eos[0][1] = 0.0
 					#print raw
-					profit = div raw[0][14] raw[0][9]
+					profit = div raw[i][14] raw[i][9]
 					bank = mul bank profit
+					#bank = mul bank 0.99
 			
+
 			inc total
+
+			percent = div correct total
+			percent = mul percent 100
+			percent = round percent 4
+			percent_str = str percent
+			performance = div bank raw[i][14]
+			performance_str = str performance
+			market = str raw[i][14]
+			bank_str = str bank
+
+			f1.write market
+			f1.write ','
+			f2.write bank_str
+			f2.write ','
+			f3.write performance_str
+			f3.write ','
+			f4.write percent_str
+			f4.write ','
+
 			inc i
+	f1.close null
+	f2.close null
+	f3.close null
+	f4.close null
 
 	#print 'eos: ' eos
-	percent = div correct total
-	percent = mul percent 100
+	
 	print 'percent_right:' percent '%'
 	print 'bank:' bank
-	market = raw[99][14]
 	print 'market:' market
 	print 'market start' raw[0][0]
-	performance = div bank market
 	print 'performance:' performance
 	percent_return = div bank raw[0][0]
 	print 'percent return:' percent_return
