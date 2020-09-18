@@ -21,7 +21,7 @@ def percent_right (ins,eos,raw1):
 	correct = 0
 	total = 0
 
-	
+	os.remove ('bitcoin_price.csv')
 	os.remove ('bank_price.csv') 
 	os.remove ('performance.csv') 
 	os.remove ('correct_trades.csv')
@@ -68,16 +68,29 @@ def percent_right (ins,eos,raw1):
 			performance_str = str (performance)
 			market = str (raw[i][14])
 			bank_str = str (bank)
+			x_axis = i+1
+			x_axis = str (x_axis)
 
-			f1.write (market)
+			f1.write (x_axis)
 			f1.write (',')
-			f2.write (bank_str)
+			f1.write (market)
+			f1.write ('\n')
+			
+			f2.write (x_axis)
 			f2.write (',')
-			f3.write (performance_str)
+			f2.write (bank_str)
+			f2.write ('\n')
+			
+			f3.write (x_axis)
 			f3.write (',')
-			f4.write (percent_str)
+			f3.write (performance_str)
+			f3.write ('\n')
+			
+			f4.write (x_axis)
 			f4.write (',')
-
+			f4.write (percent_str)
+			f4.write ('\n')
+			
 			i = i + 1
 	f1.close ()
 	f2.close ()
@@ -114,5 +127,5 @@ def goldilocks ():
 
 
 percent_right ('training_set/trainingins.csv','training_set/trainingeos.csv','training_set/trainingraw.csv')
-percent_right ('testing_set/testingins.csv','testing_set/testingeos.csv','testing_set/testingraw.csv')
+
 
