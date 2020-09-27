@@ -1,3 +1,6 @@
+#this code is the plumbing for cryp. It fetches live data, cleans it,
+#and loads it into nets.
+
 import requests
 import time
 import torch
@@ -7,12 +10,15 @@ import numpy
 url = 'https://api.coindesk.com/v1/bpi/currentprice.json'
 
 class Feed
+	#gets current bitcoin price
 	def price self
 		response = requests.get url
 		response_json = response.json null
 
 		return response_json['bpi']['USD']['rate']
 
+	#creates a list of bitcoin prices seperated by a time interval
+	# e.g. [100 110 109 104 112] where each price is say 20 secs apart
 	def feed self length seconds
 		chunk = []
 		i = 1
@@ -28,6 +34,11 @@ class Feed
 		#print chunk
 		return chunk
 	
+	#takes a list of bitcoin prices and makes it into 
+	#a list of price differences from some point in that list
+	#e.g. say we have [100 110 109 104 112] and we choose the third
+	#price which we want to know the differences from. We would get
+	#[-9 1 0 -5 3]
 	def normalize self chunk start
 		i = 0
 		base = chunk[start]
@@ -46,6 +57,9 @@ class Feed
 		#print chunk
 		return chunk
 
+	#Takes a list of btc prices and determines if the price goes
+	#up or down from some point to the end.
+	#A net's expected output values is either [1 0] or [0 1] (price went up or down)
 	def chunk2eos_csv self chunk start eos_csv
 		i = start
 		length = len chunk
@@ -67,6 +81,7 @@ class Feed
 		f.write ','
 		f.write eo[1]
 		f.close null
+
 
 	def chunk2ins_csv self chunk ins_csv 
 		f = open ins_csv 'a'

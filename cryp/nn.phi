@@ -50,7 +50,7 @@ def train dataset
 	
 def run null		
 	x = feed.Feed null
-	dataset = x.load 'training_set/trainingins.csv' 'training_set/trainingeos.csv' 4
+	dataset = x.load 'data/training_data/trainingins.csv' 'data/training_data/trainingeos.csv' 4
 	#print 'hey'
 	#print dataset
 	train dataset

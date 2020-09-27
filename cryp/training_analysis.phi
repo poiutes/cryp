@@ -10,7 +10,7 @@ net = nn.Net null
 x = feed.Feed null
 
 def percent_right ins eos raw1
-	path = torch.load 'hellyeah.pth'
+	path = torch.load 'data/nets/hellyeah.pth'
 	net.load_state_dict path
 	dataset = x.load ins eos 1
 	raw = pandas.read_csv raw1
@@ -21,15 +21,15 @@ def percent_right ins eos raw1
 	correct = 0
 	total = 0
 
-	os.remove 'bitcoin_price.csv'
-	os.remove 'bank_price.csv' 
-	os.remove 'performance.csv' 
-	os.remove 'correct_trades.csv'
+	os.remove 'data/net_analysis_data/bitcoin_price.csv'
+	os.remove 'data/net_analysis_data/bank_price.csv' 
+	os.remove 'data/net_analysis_data/performance.csv' 
+	os.remove 'data/net_analysis_data/correct_trades.csv'
 
-	f1 = open 'bitcoin_price.csv' 'a'
-	f2 = open 'bank_price.csv' 'a'
-	f3 = open 'performance.csv' 'a'
-	f4 = open 'correct_trades.csv' 'a'
+	f1 = open 'data/net_analysis_data/bitcoin_price.csv' 'a'
+	f2 = open 'data/net_analysis_data/bank_price.csv' 'a'
+	f3 = open 'data/net_analysis_data/performance.csv' 'a'
+	f4 = open 'data/net_analysis_data/correct_trades.csv' 'a'
 
 	with torch.no_grad null 
 		i = 0
@@ -114,9 +114,9 @@ def goldilocks null
 	i = 0 
 	until i = 100 
 		nn.run null
-		a = percent_right 'training_set/trainingins.csv' 'training_set/trainingeos.csv' 'training_set/trainingraw.csv'
+		a = percent_right 'data/training_data/trainingins.csv' 'data/training_data/trainingeos.csv' 'data/training_data/trainingraw.csv'
 		if a > 1.0
-			b = percent_right 'testing_set/testingins.csv' 'testing_set/testingeos.csv' 'testing_set/testingraw.csv'
+			b = percent_right 'data/testing_data/testingins.csv' 'data/testing_data/testingeos.csv' 'data/testing_data/testingraw.csv'
 			if b > 1.0 
 				print 'done'
 				print a
@@ -126,6 +126,6 @@ def goldilocks null
 
 #goldilocks null
 
-percent_right 'training_set/trainingins.csv' 'training_set/trainingeos.csv' 'training_set/trainingraw.csv'
-#percent_right 'testing_set/testingins.csv' 'testing_set/testingeos.csv' 'testing_set/testingraw.csv'
+percent_right 'data/training_data/trainingins.csv' 'data/training_data/trainingeos.csv' 'data/training_data/trainingraw.csv'
+#percent_right 'data/testing_data/testingins.csv' 'data/testing_data/testingeos.csv' 'data/testing_data/testingraw.csv'
 
