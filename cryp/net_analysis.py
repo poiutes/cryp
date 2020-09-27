@@ -6,7 +6,7 @@ import initdata
 
 
 net = nn.Net ()
-path = torch.load ('hellyeah.pth')
+path = torch.load ('data/nets/hellyeah.pth')
 net.load_state_dict (path)
 
 x = feed.Feed ()
@@ -23,7 +23,7 @@ while 1 != 0:
 	initdata.initdata (20,1,10,5)
 
 	
-	dataset = x.load ('ins.csv','eos.csv',1)
+	dataset = x.load ('data/dynamic_net_inputs/ins.csv','data/dynamic_net_expected_outputs/eos.csv',1)
 	
 	
 
@@ -42,7 +42,7 @@ while 1 != 0:
 				if eos[0][0] == 1.0:
 					correct = correct + 1
 			
-			raw = pandas.read_csv ('raw.csv')
+			raw = pandas.read_csv ('data/dynamic_raw_price_data/raw.csv')
 			raw = raw.values
 			if outputs[0][0] <= outputs[0][1]:
 				if eos[0][1] == 1.0:

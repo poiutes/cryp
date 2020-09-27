@@ -1,3 +1,6 @@
+
+
+
 import requests
 import time
 import torch
@@ -7,12 +10,15 @@ import numpy
 url = 'https://api.coindesk.com/v1/bpi/currentprice.json'
 
 class Feed ():
+	
 	def price (self):
 		response = requests.get (url)
 		response_json = response.json ()
 
 		return response_json['bpi']['USD']['rate']
 
+	
+	
 	def feed (self,length,seconds):
 		chunk = []
 		i = 1
@@ -27,6 +33,11 @@ class Feed ():
 		
 		
 		return chunk
+	
+	
+	
+	
+	
 	
 	def normalize (self,chunk,start):
 		i = 0
@@ -46,6 +57,9 @@ class Feed ():
 		
 		return chunk
 
+	
+	
+	
 	def chunk2eos_csv (self,chunk,start,eos_csv):
 		i = start
 		length = len (chunk)
@@ -68,6 +82,8 @@ class Feed ():
 		f.write (eo[1])
 		f.close ()
 
+	
+	
 	def chunk2ins_csv (self,chunk,ins_csv): 
 		f = open (ins_csv,'a')
 		f.write ('\n')
@@ -81,6 +97,8 @@ class Feed ():
 		f.write (chunk[i])
 		f.close ()
 
+	
+	
 	def load (self,inputs_csv,eos_csv,batch_size):
 		inputs = pandas.read_csv (inputs_csv)
 		
@@ -120,5 +138,4 @@ class Feed ():
 
 
 
-			
 

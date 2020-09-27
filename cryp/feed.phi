@@ -58,8 +58,8 @@ class Feed
 		return chunk
 
 	#Takes a list of btc prices and determines if the price goes
-	#up or down from some point to the end.
-	#A net's expected output values is either [1 0] or [0 1] (price went up or down)
+	#up or down from some point to the end. It then exports this data to a csv.
+	#A nets expected output values is either [1 0] or [0 1] (price went up or down)
 	def chunk2eos_csv self chunk start eos_csv
 		i = start
 		length = len chunk
@@ -82,7 +82,8 @@ class Feed
 		f.write eo[1]
 		f.close null
 
-
+	#exports a python list to csv file which will later be
+	#uploaded to a neural net as its input
 	def chunk2ins_csv self chunk ins_csv 
 		f = open ins_csv 'a'
 		f.write '\n'
@@ -96,6 +97,8 @@ class Feed
 		f.write chunk[i]
 		f.close null
 
+	#loads inputs and expected outputs into nets from their respective
+	#csv files
 	def load self inputs_csv eos_csv batch_size
 		inputs = pandas.read_csv inputs_csv
 		#print inputs
@@ -132,7 +135,3 @@ class Feed
 			j = add j batch_size
 
 		return tensdata
-
-
-
-
