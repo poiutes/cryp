@@ -22,13 +22,16 @@ class Feed ():
 	def feed (self,length,seconds):
 		chunk = []
 		i = 1
+		time_until_end = seconds*length
 		length = length + 1
 		while i != length:
+			print ('seconds until next trade:',time_until_end,'seconds','\r')
 			time.sleep (seconds)
 			bprice = self.price ()
 			bprice = bprice.replace (',','')
 			
 			chunk.append (bprice)
+			time_until_end = time_until_end-seconds
 			i = i + 1
 		
 		

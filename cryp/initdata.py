@@ -3,6 +3,7 @@
 import feed
 import os
 
+
 def initdata (width,height,fetch_interval,buy_window):
 	os.remove ('data/dynamic_net_inputs/ins.csv')
 	os.remove ('data/dynamic_raw_price_data/raw.csv')
@@ -33,5 +34,3 @@ def initdata (width,height,fetch_interval,buy_window):
 		i = i + 1
 
 	
-
-initdata (20,1,10,5)

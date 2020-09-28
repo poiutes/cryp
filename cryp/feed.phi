@@ -1,5 +1,5 @@
 #this code is the plumbing for cryp. It fetches live data, cleans it,
-#and loads it into nets.
+#and loads it into tensors for nets.
 
 import requests
 import time
@@ -22,13 +22,16 @@ class Feed
 	def feed self length seconds
 		chunk = []
 		i = 1
+		time_until_end = mul seconds length
 		inc length
 		until i = length
+			print 'seconds until next trade:' time_until_end 'seconds' '\r'
 			time.sleep seconds
 			bprice = self.price null
 			bprice = bprice.replace ',' ''
 			#print bprice
 			chunk.append bprice
+			time_until_end = sub time_until_end seconds
 			inc i
 		#print 'chunk'
 		#print chunk
@@ -119,7 +122,22 @@ class Feed
 		f.write chunk[i]
 		f.close null
 
-	#loads inputs and expected outputs into nets from their respective
+	#exports price data to a csv file (creates comma instead
+	# of newline though when opening csv)
+	def chunk2raw_csv_no_newline self chunk raw_csv 
+		f = open raw_csv 'a'
+		f.write ','
+		i = 0
+		end = len chunk 
+		end = sub end 1
+		until i = end
+			f.write chunk[i]
+			f.write ','
+			inc i
+		f.write chunk[i]
+		f.close null
+
+	#loads inputs and expected outputs into tensors from their respective
 	#csv files
 	def load self inputs_csv eos_csv batch_size
 		inputs = pandas.read_csv inputs_csv

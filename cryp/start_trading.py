@@ -4,71 +4,100 @@ import nn
 import torch
 import feed
 import pandas
-import initdata
+import numpy
+import time
+
 
 
 net = nn.Net ()
 path = torch.load ('data/nets/hellyeah.pth')
 net.load_state_dict (path)
 
+
 x = feed.Feed ()
-start_price = x.feed (1,0)
-start_price = start_price[0]
-start_price = float (start_price)
 
-print (start_price)
-
-market = start_price
-bank = start_price
-
+start_flag = 0 
 while 1 != 0:
-	initdata.initdata (20,1,10,5)
+	ins = x.feed (15,10)
+	
+	if start_flag == 0: 
+		start_price = ins[0]
+		start_price = float (start_price)
+		bank = start_price
+		market_start = start_price
+		start_flag = start_flag + 1
 
+	buy_price = float (ins[14])
 	
-	dataset = x.load ('data/dynamic_net_inputs/ins.csv','data/dynamic_net_expected_outputs/eos.csv',1)
+
+	ins = x.normalize (ins,14)
+	j = 0 
+	while j != 15:
+		ins[j] = float (ins[j])
+		j = j + 1
 	
+	ins = [ins]
 	
+
+	ins = numpy.array (ins)
 
 	correct = 0
 	total = 0
 	with torch.no_grad (): 
-		i = 0
-		while i != len (dataset):
-			ins = dataset[i][0]
-			eos = dataset[i][1]
-			
-			outputs = net (ins)
-			
-			
-			if outputs[0][0] > outputs[0][1]:
-				if eos[0][0] == 1.0:
-					correct = correct + 1
-			
-			raw = pandas.read_csv ('data/dynamic_raw_price_data/raw.csv')
-			raw = raw.values
-			if outputs[0][0] <= outputs[0][1]:
-				if eos[0][1] == 1.0:
-					profit = raw[0][14]/raw[0][9]
-					bank = bank*profit
-					correct = correct + 1
+		
+		ins = torch.from_numpy (ins)
+		ins = ins.float ()
+		
+	
+		outputs = net (ins)
+		
+		
 
-				if eos[0][1] == 0.0:
-					
-					profit = raw[0][14]/raw[0][9]
-					bank = bank*profit
-			
-			total = total + 1
-			i = i + 1
+	
+	
+	if outputs[0][0] > outputs[0][1]:
+		sell_price = buy_price
+		print ('\n','net says do nothing')
 
-	percent = correct/total
-	percent = percent*100
-	print ('percent_right:',percent,'%')
+	
+	if outputs[0][0] <= outputs[0][1]:
+		print ('\n','net says buy at',buy_price,'\n')
+	
+		
+		j = 0
+		profit_flag = 0
+		while j != 5:
+			time.sleep (10)
+			sell_price = x.price ()
+			sell_price = sell_price.replace (',','')
+			sell_price = float (sell_price)
+			print ('current price:',sell_price)
+			if sell_price > buy_price:
+				print ('\n','profitable_trade')
+				j = 4
+				profit_flag = 1
+			j = j + 1
+
+		if profit_flag == 0:
+			if buy_price == sell_price:
+				print ('\n','neutral_trade')
+
+			if buy_price > sell_price:
+				print ('\n','loss_on_trade')		
+
+		profit = sell_price/buy_price
+		bank = profit*bank
+
+	print ('\n')
+
+
+
 	print ('bank:',bank)
-	market = raw[0][14]
+	market = sell_price
 	print ('market:',market)
-	print ('market start',raw[0][0])
+	print ('market start',market_start)
 	performance = bank/market
 	print ('performance:',performance)
-	percent_return = bank/raw[0][0]
+	percent_return = bank/market_start
 	print ('percent return:',percent_return)
 	print ('\n')
