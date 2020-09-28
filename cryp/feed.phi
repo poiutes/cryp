@@ -59,17 +59,23 @@ class Feed
 
 	#Takes a list of btc prices and determines if the price goes
 	#up or down from some point to the end. It then exports this data to a csv.
-	#A nets expected output values is either [1 0] or [0 1] (price went up or down)
+	#A nets expected output values is either [0 1] or [1 0] (price went up or down)
 	def chunk2eos_csv self chunk start eos_csv
-		i = start
 		length = len chunk
 		end = sub length 1
 		eo = [0.0 0.0]
+		trade_window = chunk[start:end]
+		i = 0
+		up = 0 
+		until i = len trade_window
+			if trade_window[0] < trade_window[i]
+				up = 1
+			inc i
 
-		if chunk[start] < chunk[end]
+		if up = 1
 			eo[1] = 1.0
 
-		if chunk[start] >= chunk[end]
+		if up = 0
 			eo[0] = 1.0
 			
 		eo[0] = str eo[0]
@@ -84,8 +90,24 @@ class Feed
 
 	#exports a python list to csv file which will later be
 	#uploaded to a neural net as its input
-	def chunk2ins_csv self chunk ins_csv 
+	def chunk2ins_csv self chunk end ins_csv
+		ins = chunk[0:end]
 		f = open ins_csv 'a'
+		f.write '\n'
+		i = 0
+		end = len ins
+		end = sub end 1
+		until i = end
+			f.write ins[i]
+			f.write ','
+			inc i
+		f.write ins[i]
+		f.close null
+
+
+	#exports price data to a csv file
+	def chunk2raw_csv self chunk raw_csv 
+		f = open raw_csv 'a'
 		f.write '\n'
 		i = 0
 		end = len chunk 

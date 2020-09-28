@@ -1,3 +1,7 @@
+#initializes and trains a neural net with 15 inputs (changes in price from 6th most recent 
+#bitcoin price) and two expected outputs (does the price go up or down within the last 
+#five bitcoin prices. 
+
 import feed
 import torch
 import torch.nn as nn

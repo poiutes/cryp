@@ -61,15 +61,21 @@ class Feed ():
 	
 	
 	def chunk2eos_csv (self,chunk,start,eos_csv):
-		i = start
 		length = len (chunk)
 		end = length-1
 		eo = [0.0,0.0]
+		trade_window = chunk[start:end]
+		i = 0
+		up = 0 
+		while i != len (trade_window):
+			if trade_window[0] < trade_window[i]:
+				up = 1
+			i = i + 1
 
-		if chunk[start] < chunk[end]:
+		if up == 1:
 			eo[1] = 1.0
 
-		if chunk[start] >= chunk[end]:
+		if up == 0:
 			eo[0] = 1.0
 			
 		eo[0] = str (eo[0])
@@ -84,8 +90,24 @@ class Feed ():
 
 	
 	
-	def chunk2ins_csv (self,chunk,ins_csv): 
+	def chunk2ins_csv (self,chunk,end,ins_csv):
+		ins = chunk[0:end]
 		f = open (ins_csv,'a')
+		f.write ('\n')
+		i = 0
+		end = len (ins)
+		end = end-1
+		while i != end:
+			f.write (ins[i])
+			f.write (',')
+			i = i + 1
+		f.write (ins[i])
+		f.close ()
+
+
+	
+	def chunk2raw_csv (self,chunk,raw_csv): 
+		f = open (raw_csv,'a')
 		f.write ('\n')
 		i = 0
 		end = len (chunk) 
@@ -135,7 +157,3 @@ class Feed ():
 			j = j+batch_size
 
 		return tensdata
-
-
-
-
