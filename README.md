@@ -2,7 +2,7 @@
 
 Cryp is a neural net that trades financial instruments. It's written using the phi compiler, which you can find [here](https://github.com/poiutes/phi)
 
-## Demoing Cryp
+## Using Cryp
 You can demo cryp by doing the following.
 
 1. Download the cryp source
@@ -11,7 +11,10 @@ You can demo cryp by doing the following.
 1. Cryp is now doing a simulated trading session on bitcoin. Go [here](https://rlstuard.com/cryp) to better understand the console outputs
 
 ## Notes
-1. Cryp's simulated trading follows three large assumptions: 1. There are no trading fees 2. There is no ask/bid spread 3. cryp buying/selling would have no effect on the market
+1. Cryp's simulated trading follows three large assumptions: 
+	1. There are no trading fees 
+	1. There is no ask/bid spread 
+	1. Cryp buying/selling would have no effect on the market
 
 1. It's also important to realize that trading bots don't need to be profitable on every trade. It just has to be more profitable than not over the long term.
 
