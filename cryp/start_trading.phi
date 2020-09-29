@@ -13,8 +13,12 @@ net = nn.Net null
 path = torch.load 'data/nets/hellyeah.pth'
 net.load_state_dict path
 
+print 'net initialized' '\n'
+
 #initializes dataset for one round of inputs through net
 x = feed.Feed null
+
+print 'financial data feed initalized' '\n'
 
 start_flag = 0 
 until 1 = 0

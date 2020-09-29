@@ -34,3 +34,5 @@ def initdata width height fetch_interval buy_window
 		inc i
 
 	#print 'done'
+
+initdata 20 100 10 5
