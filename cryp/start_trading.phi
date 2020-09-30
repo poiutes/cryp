@@ -10,7 +10,7 @@ import time
 
 #initialize net
 net = nn.Net null
-path = torch.load 'data/nets/hellyeah.pth'
+path = torch.load 'data/nets/hellyeah2.pth'
 net.load_state_dict path
 
 print 'net initialized' '\n'
