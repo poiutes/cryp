@@ -126,8 +126,8 @@ def goldilocks null
 				return 0
 		inc i
 
-#goldilocks null
+goldilocks null
 
-percent_right 'data/training_data/trainingins.csv' 'data/training_data/trainingeos.csv' 'data/training_data/trainingraw.csv'
+#percent_right 'data/training_data/trainingins.csv' 'data/training_data/trainingeos.csv' 'data/training_data/trainingraw.csv'
 #percent_right 'data/testing_data/testingins.csv' 'data/testing_data/testingeos.csv' 'data/testing_data/testingraw.csv'
 

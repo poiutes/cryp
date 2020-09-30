@@ -1,3 +1,5 @@
+
+
 import nn
 import torch
 import feed
@@ -124,8 +126,8 @@ def goldilocks ():
 				return 0
 		i = i + 1
 
+goldilocks ()
 
 
-percent_right ('data/training_data/trainingins.csv','data/training_data/trainingeos.csv','data/training_data/trainingraw.csv')
 
 

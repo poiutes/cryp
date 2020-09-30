@@ -13,11 +13,16 @@ net = nn.Net ()
 path = torch.load ('data/nets/hellyeah.pth')
 net.load_state_dict (path)
 
+print ('net initialized','\n')
+
 
 x = feed.Feed ()
 
+print ('financial data feed initalized','\n')
+
 start_flag = 0 
 while 1 != 0:
+	print ('150 seconds until trade event','\n')
 	ins = x.feed (15,10)
 	
 	if start_flag == 0: 
@@ -57,11 +62,11 @@ while 1 != 0:
 	
 	if outputs[0][0] > outputs[0][1]:
 		sell_price = buy_price
-		print ('\n','net says do nothing')
+		print ('\n','trade event: net says do not buy')
 
 	
 	if outputs[0][0] <= outputs[0][1]:
-		print ('\n','net says buy at',buy_price,'\n')
+		print ('\n','trade event: net says buy',bank,'dollars of BTC at',buy_price,'\n')
 	
 		
 		j = 0
@@ -73,17 +78,17 @@ while 1 != 0:
 			sell_price = float (sell_price)
 			print ('current price:',sell_price)
 			if sell_price > buy_price:
-				print ('\n','profitable_trade')
+				print ('\n','profitable_trade: bought',bank,'dollars of BTC at',buy_price,'| sold',bank,'BTC at',sell_price)
 				j = 4
 				profit_flag = 1
 			j = j + 1
 
 		if profit_flag == 0:
 			if buy_price == sell_price:
-				print ('\n','neutral_trade')
+				print ('\n','neutral trade: bought',bank,'dollars of BTC at',buy_price,'| sold',bank,'BTC at',sell_price)
 
 			if buy_price > sell_price:
-				print ('\n','loss_on_trade')		
+				print ('\n','loss on trade: bought',bank,'dollars of BTC at',buy_price,'| sold',bank,'BTC at',sell_price)		
 
 		profit = sell_price/buy_price
 		bank = profit*bank
@@ -94,10 +99,10 @@ while 1 != 0:
 
 	print ('bank:',bank)
 	market = sell_price
-	print ('market:',market)
-	print ('market start',market_start)
+	print ('current market price:',market)
+	print ('market start:',market_start)
 	performance = bank/market
-	print ('performance:',performance)
+	print ('performance against current market price:',performance)
 	percent_return = bank/market_start
-	print ('percent return:',percent_return)
+	print ('percent return on initial investment:',percent_return)
 	print ('\n')

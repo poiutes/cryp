@@ -1,3 +1,7 @@
+
+
+
+
 import feed
 import torch
 import torch.nn as nn
@@ -50,7 +54,7 @@ def train (dataset):
 	
 def run ():		
 	x = feed.Feed ()
-	dataset = x.load ('training_set/trainingins.csv','training_set/trainingeos.csv',4)
+	dataset = x.load ('data/training_data/trainingins.csv','data/training_data/trainingeos.csv',4)
 	
 	
 	train (dataset)

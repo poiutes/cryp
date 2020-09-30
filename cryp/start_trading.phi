@@ -22,6 +22,7 @@ print 'financial data feed initalized' '\n'
 
 start_flag = 0 
 until 1 = 0
+	print '150 seconds until trade event' '\n'
 	ins = x.feed 15 10
 	
 	if start_flag = 0 
@@ -61,11 +62,11 @@ until 1 = 0
 	#do nothing condition
 	if outputs[0][0] > outputs[0][1]
 		sell_price = buy_price
-		print '\n' 'net says do not buy'
+		print '\n' 'trade event: net says do not buy'
 
 	#buy condition
 	if outputs[0][0] <= outputs[0][1]
-		print '\n' 'net says buy at' buy_price '\n'
+		print '\n' 'trade event: net says buy' bank 'dollars of BTC at' buy_price '\n'
 	
 		
 		j = 0
@@ -77,17 +78,17 @@ until 1 = 0
 			sell_price = float sell_price
 			print 'current price:' sell_price
 			if sell_price > buy_price
-				print '\n' 'profitable_trade'
+				print '\n' 'profitable_trade: bought' bank 'dollars of BTC at' buy_price '| sold' bank 'BTC at' sell_price
 				j = 4
 				profit_flag = 1
 			inc j
 
 		if profit_flag = 0
 			if buy_price = sell_price
-				print '\n' 'neutral trade'
+				print '\n' 'neutral trade: bought' bank 'dollars of BTC at' buy_price '| sold' bank 'BTC at' sell_price
 
 			if buy_price > sell_price
-				print '\n' 'loss on trade'		
+				print '\n' 'loss on trade: bought' bank 'dollars of BTC at' buy_price '| sold' bank 'BTC at' sell_price		
 
 		profit = div sell_price buy_price
 		bank = mul profit bank

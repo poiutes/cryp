@@ -22,16 +22,16 @@ class Feed ():
 	def feed (self,length,seconds):
 		chunk = []
 		i = 1
-		time_until_end = seconds*length
+		
+		total = length
 		length = length + 1
 		while i != length:
-			print ('seconds until next trade:',time_until_end,'seconds','\r')
 			time.sleep (seconds)
 			bprice = self.price ()
 			bprice = bprice.replace (',','')
-			
+			print ('net price input',i,'of',total,':',bprice)
 			chunk.append (bprice)
-			time_until_end = time_until_end-seconds
+			
 			i = i + 1
 		
 		
@@ -112,6 +112,21 @@ class Feed ():
 	def chunk2raw_csv (self,chunk,raw_csv): 
 		f = open (raw_csv,'a')
 		f.write ('\n')
+		i = 0
+		end = len (chunk) 
+		end = end-1
+		while i != end:
+			f.write (chunk[i])
+			f.write (',')
+			i = i + 1
+		f.write (chunk[i])
+		f.close ()
+
+	
+	
+	def chunk2raw_csv_no_newline (self,chunk,raw_csv): 
+		f = open (raw_csv,'a')
+		f.write (',')
 		i = 0
 		end = len (chunk) 
 		end = end-1

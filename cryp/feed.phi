@@ -22,16 +22,16 @@ class Feed
 	def feed self length seconds
 		chunk = []
 		i = 1
-		time_until_end = mul seconds length
+		#time_until_end = mul seconds length
+		total = length
 		inc length
 		until i = length
-			print 'seconds until next trade:' time_until_end 'seconds' '\r'
 			time.sleep seconds
 			bprice = self.price null
 			bprice = bprice.replace ',' ''
-			#print bprice
+			print 'net price input' i 'of' total ':' bprice
 			chunk.append bprice
-			time_until_end = sub time_until_end seconds
+			#time_until_end = sub time_until_end seconds
 			inc i
 		#print 'chunk'
 		#print chunk
