@@ -13,7 +13,7 @@ net = nn.Net null
 path = torch.load 'data/nets/hellyeah2.pth'
 net.load_state_dict path
 
-print '\n' 'net initialized' '\n'
+print 'net initialized' '\n'
 
 #initializes dataset for one round of inputs through net
 x = feed.Feed null
